@@ -4,14 +4,29 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_dora_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dora">
         <activity
+            android:name=".WarrantiesList"
+            android:exported="false" />
+        <activity
+            android:name=".Registration4"
+            android:exported="false" />
+        <activity
+            android:name=".Registration3"
+            android:exported="false" />
+        <activity
+            android:name=".Registration2"
+            android:exported="false" />
+        <activity
+            android:name=".Registration1"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Dora.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

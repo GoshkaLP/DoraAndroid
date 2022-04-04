@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+    android:id="@+id/userProfileBut"
+    android:icon="@drawable/ic_person"
+    android:title="text"
+    app:showAsAction="ifRoom"
+        />
+
+<!--    <item-->
+<!--        android:id="@+id/warrantyBut"-->
+<!--        android:icon="@drawable/ic_warranty"-->
+<!--        android:title="text"-->
+<!--        app:showAsAction="ifRoom"-->
+<!--        />-->
+
+</menu>

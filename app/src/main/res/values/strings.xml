@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Dora</string>
+    <string name="reg1">Добро пожаловать в Dora</string>
+    <string name="reg2">Введите вашу почту</string>
+    <string name="reg31">Ваш аккаунт не был найден. Придумайте пароль</string>
+    <string name="buttonSend">Отправить</string>
+    <string name="inputPassword">Ваш пароль</string>
+    <string name="inputPasswordAgain">Ваш пароль еще раз</string>
+    <string name="buttonContinue">Продолжить</string>
+    <string name="inputEmail">Ваш e-mail</string>
+    <string name="reg32">Введите ваш пароль</string>
 </resources>
