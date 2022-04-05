@@ -24,7 +24,7 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
 
     <Button
-        android:id="@+id/registerBut1"
+        android:id="@+id/registerButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="576dp"

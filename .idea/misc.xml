@@ -7,18 +7,26 @@
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_but.xml" value="0.1635" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_dora_icon.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_dora_icon_appbar.xml" value="0.1635" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_image.xml" value="0.1635" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_image_plug.xml" value="0.1635" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_input.xml" value="0.176" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_person.xml" value="0.1635" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_qr_code_scanner.xml" value="0.1635" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_receipt.xml" value="0.1635" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_warranty.xml" value="0.1635" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/icon_dora.xml" value="0.1715" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_profile1.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_profile2.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_registration1.xml" value="0.2" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_registration2.xml" value="0.2" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_registration3.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_registration4.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_warranties_list.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_warranty_application.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/activity_warranty_detail.xml" value="0.2" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/bars.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/card.xml" value="0.25" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/menu/bottom_app_bar.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/menu/top_app_bar.xml" value="0.2" />
       </map>
