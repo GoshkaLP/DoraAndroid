@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="ASUS ZX12321"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <LinearLayout
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Тип продукта: ноутбук"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Производитель: ASUS"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
         <TextView
@@ -60,14 +60,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Дата окончания гарантии: xx.xx.xxxx"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
         <Button
             android:id="@+id/productButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
             android:text="Просмотреть гарантийные центры" />
 

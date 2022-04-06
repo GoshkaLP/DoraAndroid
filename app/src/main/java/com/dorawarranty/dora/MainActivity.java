@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -31,26 +32,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warranties_list);
 
-        BottomAppBar bottomBar = findViewById(R.id.bottomAppBar);
-        FloatingActionButton fab = findViewById(R.id.qrScan);
-        Toolbar upBar = findViewById(R.id.topAppBar);
-        BarsHelper.createBarsListeners(upBar, bottomBar, fab);
+        Intent intent = new Intent(this, WarrantyServiceCenter.class);
+        startActivity(intent);
 
-
-        LinearLayout scrollElements = findViewById(R.id.scrollElements);
-        setMargins(scrollElements, 0, 10, 0, 100);
-
-        LayoutInflater inflater = getLayoutInflater();
-        for (int i = 0; i < 10; i++) {
+//        BottomAppBar bottomBar = findViewById(R.id.bottomAppBar);
+//        FloatingActionButton fab = findViewById(R.id.qrScan);
+//        Toolbar upBar = findViewById(R.id.topAppBar);
+//        BarsHelper.createBarsListeners(upBar, bottomBar, fab);
+//
+//
+//        LinearLayout scrollElements = findViewById(R.id.scrollElements);
+//        setMargins(scrollElements, 0, 10, 0, 100);
+//
+//        LayoutInflater inflater = getLayoutInflater();
+//        for (int i = 0; i < 10; i++) {
 //            TextView text = new TextView(this);
 //            text.setText("Текст текст текст текст");
 //            text.setTextAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Headline6);
 //            scrollElements.addView(text);
 //            setMargins(text, 20, 10, 0, 0);
-            View card = inflater.inflate(R.layout.card, null, false);
-            scrollElements.addView(card);
-            setMargins(card, 8, 0, 8, 10);
-        }
+//            View card = inflater.inflate(R.layout.card, null, false);
+//            scrollElements.addView(card);
+//            setMargins(card, 8, 0, 8, 10);
+//        }
     }
 
     private int convertToDp(int sz) {

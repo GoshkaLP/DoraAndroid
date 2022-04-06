@@ -9,4 +9,13 @@
     <string name="buttonContinue">Продолжить</string>
     <string name="inputEmail">Ваш e-mail</string>
     <string name="reg32">Введите ваш пароль</string>
+    <string name="buttonLogout">Выйти</string>
+    <string name="changePassword">Смена пароля</string>
+    <string name="oldPassword">Ваш старый пароль</string>
+    <string name="newPassword">Выш новый пароль</string>
+    <string name="newPasswordAgain">Ваш новый пароль еще раз</string>
+    <string name="applicationHeader">Заявка на обслуживание</string>
+    <string name="applicationProblem">Опишите кратко вашу проблему</string>
+    <string name="applicationHint">Опишите проблему...</string>
+    <string name="serviceCentersList">Список гарантийных центров</string>
 </resources>

@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Заявка на обслуживание"
-            android:layout_marginLeft="20dp"
+            android:text="@string/applicationHeader"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <TextView
@@ -26,22 +26,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Опишите кратко вашу проблему"
-            android:layout_marginLeft="20dp"
+            android:text="@string/applicationProblem"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="12dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:hint="Опишите проблему..." />
+                android:hint="@string/applicationHint" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -54,9 +54,8 @@
                 android:id="@+id/sendApplication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:text="Отправить" />
+                android:text="@string/buttonSend" />
         </LinearLayout>
 
 

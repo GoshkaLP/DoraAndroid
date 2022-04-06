@@ -18,29 +18,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="Здравствуйте, username"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <Button
             android:id="@+id/changePasswordButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="45dp"
-            android:text="Отправить" />
+            android:text="@string/buttonSend" />
 
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="Выйти"
+            android:text="@string/buttonLogout"
             style="@style/Widget.App.Button.Logout"/>
-
-
-
-
     </LinearLayout>
 
 
