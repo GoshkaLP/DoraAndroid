@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_warranties_list);
+        setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, WarrantyServiceCenter.class);
         startActivity(intent);
@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
 //        FloatingActionButton fab = findViewById(R.id.qrScan);
 //        Toolbar upBar = findViewById(R.id.topAppBar);
 //        BarsHelper.createBarsListeners(upBar, bottomBar, fab);
-//
-//
+
+
 //        LinearLayout scrollElements = findViewById(R.id.scrollElements);
 //        setMargins(scrollElements, 0, 10, 0, 100);
-//
+
 //        LayoutInflater inflater = getLayoutInflater();
 //        for (int i = 0; i < 10; i++) {
 //            TextView text = new TextView(this);

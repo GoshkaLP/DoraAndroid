@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/bars" />
+    <include layout="@layout/upbar_layout" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,4 +61,7 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+    <include layout="@layout/bottombar_layout" />
+    <include layout="@layout/fab_layout" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

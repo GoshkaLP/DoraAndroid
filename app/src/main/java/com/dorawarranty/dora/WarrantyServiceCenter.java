@@ -56,7 +56,7 @@ public class WarrantyServiceCenter extends AppCompatActivity implements OnMapRea
         mMap.moveCamera(CameraUpdateFactory.newLatLng(mirea));
 
 
-        ListView listView = findViewById(R.id.serviceCenterList);
+//        ListView listView = findViewById(R.id.serviceCenterList);
 
         final String[] catNames = new String[] {
                 "Рыжик", "Барсик", "Мурзик", "Мурка", "Васька",
@@ -67,6 +67,6 @@ public class WarrantyServiceCenter extends AppCompatActivity implements OnMapRea
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, catNames);
 
-        listView.setAdapter(adapter);
+//        listView.setAdapter(adapter);
     }
 }

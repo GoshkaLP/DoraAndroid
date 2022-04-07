@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.bottomappbar.BottomAppBar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomAppBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+    app:navigationIcon="@drawable/ic_warranty"
+    app:menu="@menu/bottom_app_bar"
+    tools:ignore="BottomAppBar" />
