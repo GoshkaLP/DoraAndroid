@@ -20,7 +20,10 @@ import android.widget.TextView;
 import com.dorawarranty.dora.BarsHelper;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
+import com.dorawarranty.dora.DI.ServiceLocator;
+import com.dorawarranty.dora.mvvm.views.Registration1Fragment;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,8 +35,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, WarrantyServiceCenter.class);
-        startActivity(intent);
+        ServiceLocator.init(this.getApplicationContext());
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_fragment, new Registration1Fragment())
+                .addToBackStack(null)
+                .commit();
+
+//        Intent intent = new Intent(this, WarrantyServiceCenter.class);
+//        startActivity(intent);
 
 //        BottomAppBar bottomBar = findViewById(R.id.bottomAppBar);
 //        FloatingActionButton fab = findViewById(R.id.qrScan);
@@ -56,15 +66,15 @@ public class MainActivity extends AppCompatActivity {
 //            setMargins(card, 8, 0, 8, 10);
 //        }
     }
-
-    private int convertToDp(int sz) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sz, getResources()
-                        .getDisplayMetrics());
-    }
-
-    private void setMargins (View view, int left, int top, int right, int bottom) {
-        ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        p.setMargins(convertToDp(left), convertToDp(top), convertToDp(right), convertToDp(bottom));
-        view.requestLayout();
-    }
+//
+//    private int convertToDp(int sz) {
+//        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sz, getResources()
+//                        .getDisplayMetrics());
+//    }
+//
+//    private void setMargins (View view, int left, int top, int right, int bottom) {
+//        ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+//        p.setMargins(convertToDp(left), convertToDp(top), convertToDp(right), convertToDp(bottom));
+//        view.requestLayout();
+//    }
 }

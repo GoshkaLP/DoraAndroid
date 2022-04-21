@@ -45,6 +45,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -59,9 +60,11 @@
         android:layout_marginEnd="12dp"
         app:endIconMode="password_toggle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/changePasswordLayout"
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/changePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

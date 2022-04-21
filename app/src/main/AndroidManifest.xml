@@ -16,36 +16,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
-        <activity
-            android:name=".WarrantyServiceCenter"
-            android:exported="false" />
-        <activity
-            android:name=".Profile2"
-            android:exported="false" />
-        <activity
-            android:name=".Profile1"
-            android:exported="false" />
-        <activity
-            android:name=".WarrantyApplication"
-            android:exported="false" />
-        <activity
-            android:name=".WarrantyDetail"
-            android:exported="false" />
-        <activity
-            android:name=".WarrantiesList"
-            android:exported="false" />
-        <activity
-            android:name=".Registration4"
-            android:exported="false" />
-        <activity
-            android:name=".Registration3"
-            android:exported="false" />
-        <activity
-            android:name=".Registration2"
-            android:exported="false" />
-        <activity
-            android:name=".Registration1"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".WarrantyServiceCenter"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true" >

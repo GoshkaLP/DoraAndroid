@@ -18,4 +18,6 @@
     <string name="applicationProblem">Опишите кратко вашу проблему</string>
     <string name="applicationHint">Опишите проблему...</string>
     <string name="serviceCentersList">Список гарантийных центров</string>
+
+    <string name="changePasswordError">Введенные пароли не совпадают</string>
 </resources>
