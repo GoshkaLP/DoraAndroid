@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -42,6 +43,7 @@ public class Registration2Fragment extends Fragment {
         binding.registerButton2.setEnabled(false);
 
         mViewModel.getEmail().observe(getViewLifecycleOwner(), email -> {
+            binding.emailLayout.setError(null);
             if (!email.isEmpty()) {
                 binding.registerButton2.setEnabled(true);
             } else {
@@ -72,15 +74,24 @@ public class Registration2Fragment extends Fragment {
         binding.registerButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 if (mViewModel.checkEmail(mViewModel.getEmail().getValue())) {
-                     getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration3Fragment())
-                         .addToBackStack(null)
-                         .commit();
-                 } else {
-                     getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration4Fragment())
-                        .addToBackStack(null)
-                        .commit();
-                 }
+
+                mViewModel.checkEmail(mViewModel.getEmail().getValue()).observe(getViewLifecycleOwner(), result -> {
+                    if (result.getStatus() == 0) {
+                        mViewModel.resetCheckEmail();
+                        getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration3Fragment())
+                                .addToBackStack(null)
+                                .commit();
+                    } else if (result.getStatus() == 1) {
+                        mViewModel.resetCheckEmail();
+                        getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration4Fragment())
+                                .addToBackStack(null)
+                                .commit();
+                    } else if (result.getStatus() == 2) {
+                        mViewModel.resetCheckEmail();
+                        binding.emailLayout.setError(result.getMessage());
+                    }
+
+                });
             }
         });
     }

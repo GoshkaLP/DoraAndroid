@@ -20,4 +20,6 @@
     <string name="serviceCentersList">Список гарантийных центров</string>
 
     <string name="changePasswordError">Введенные пароли не совпадают</string>
+    <string name="showServiceCentres">Просмотреть гарантийные центры</string>
+    <string name="showClaimStatus">Статус гарантийной заявки</string>
 </resources>

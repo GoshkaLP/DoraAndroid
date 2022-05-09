@@ -10,26 +10,31 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.dorawarranty.dora.DI.ServiceLocator;
-import com.dorawarranty.dora.R;
-import com.dorawarranty.dora.databinding.Registration1Binding;
+import com.dorawarranty.dora.BarsHelper;
+import com.dorawarranty.dora.adapters.WarrantyUnitAdapter;
+import com.dorawarranty.dora.databinding.WarrantiesListBinding;
 import com.dorawarranty.dora.mvvm.viewModels.UsersViewModel;
+import com.dorawarranty.dora.mvvm.viewModels.WarrantyViewModel;
+import com.google.android.material.card.MaterialCardView;
 
-
-public class Registration1Fragment extends Fragment {
-    Registration1Binding binding;
-    private UsersViewModel mViewModel;
+public class WarrantiesListFragment extends Fragment {
+    WarrantiesListBinding binding;
+    private WarrantyViewModel mViewModel;
+    private WarrantyUnitAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return super.onCreateView(inflater, container, savedInstanceState);
-        binding = Registration1Binding.inflate(inflater, container, false);
+        binding = WarrantiesListBinding.inflate(inflater, container, false);
 
         View v = binding.getRoot();
+
+        binding.warrantyListRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        BarsHelper.createBarsListeners(this, binding.bottomBar.bottomAppBar, binding.fab.qrScan);
 
         v.setFocusableInTouchMode(true);
         v.requestFocus();
@@ -48,22 +53,16 @@ public class Registration1Fragment extends Fragment {
         return v;
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.registerButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration2Fragment())
-                        .addToBackStack(null)
-                        .commit();
-            }
+        mViewModel = new ViewModelProvider(requireActivity()).get(WarrantyViewModel.class);
+        mAdapter = new WarrantyUnitAdapter(this);
+        binding.warrantyListRecycler.setAdapter(mAdapter);
+
+        mViewModel.getUnits().observe(getViewLifecycleOwner(), result -> {
+            mAdapter.initData(result);
         });
     }
 }

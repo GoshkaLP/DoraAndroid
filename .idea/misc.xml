@@ -5,7 +5,7 @@
       <map>
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_arrow_back.xml" value="0.1635" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_but.xml" value="0.1635" />
-        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_dora_icon.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_dora_icon.xml" value="0.136" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_dora_icon_appbar.xml" value="0.1635" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_image.xml" value="0.1635" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/drawable/ic_image_plug.xml" value="0.1635" />
@@ -32,10 +32,19 @@
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/bottombar_layout.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/card.xml" value="0.25" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/fab_layout.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/profile1.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/profile2.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/qr_scan.xml" value="0.1" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/registration1.xml" value="0.21403508771929824" />
-        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/registration2.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/registration2.xml" value="0.1" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/registration3.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/registration4.xml" value="0.1" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/splash.xml" value="0.1947463768115942" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/upbar_layout.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/warranties_list.xml" value="0.1431159420289855" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/warranty_application.xml" value="0.16" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/warranty_detail.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/layout/warranty_service_center.xml" value="0.2006340579710145" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/menu/bottom_app_bar.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/rybki/stuff/DoraAndroid/app/src/main/res/menu/top_app_bar.xml" value="0.2" />
       </map>

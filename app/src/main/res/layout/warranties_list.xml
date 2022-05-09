@@ -8,7 +8,7 @@
     <include layout="@layout/upbar_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/warrantyListRecycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -21,8 +21,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <include layout="@layout/bottombar_layout" />
-    <include layout="@layout/fab_layout" />
+    <include
+        android:id="@+id/bottomBar"
+        layout="@layout/bottombar_layout" />
+    <include
+        android:id="@+id/fab"
+        layout="@layout/fab_layout" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

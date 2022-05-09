@@ -2,14 +2,14 @@ package com.dorawarranty.dora.network.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Auth {
+public class AuthRequest {
     @SerializedName("email")
     private String email;
 
     @SerializedName("password")
     private String password;
 
-    public Auth(String email, String password) {
+    public AuthRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }

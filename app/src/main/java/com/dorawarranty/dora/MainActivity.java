@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.dorawarranty.dora.DI.ServiceLocator;
 import com.dorawarranty.dora.mvvm.views.Registration1Fragment;
+import com.dorawarranty.dora.mvvm.views.SplashFragment;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         ServiceLocator.init(this.getApplicationContext());
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_fragment, new Registration1Fragment())
+                .replace(R.id.main_fragment, new SplashFragment())
                 .addToBackStack(null)
                 .commit();
 

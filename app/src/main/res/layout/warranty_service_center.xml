@@ -54,8 +54,12 @@
 
     </LinearLayout>
 
-    <include layout="@layout/bottombar_layout" />
-    <include layout="@layout/fab_layout" />
+    <include
+        android:id="@+id/bottomBar"
+        layout="@layout/bottombar_layout" />
+    <include
+        android:id="@+id/fab"
+        layout="@layout/fab_layout" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -35,6 +35,7 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordAuthLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="390dp"
@@ -45,6 +46,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordAuth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

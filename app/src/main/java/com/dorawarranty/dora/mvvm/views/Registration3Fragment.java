@@ -46,20 +46,20 @@ public class Registration3Fragment extends Fragment {
 
 //        mViewModel.getPassword().observe(getViewLifecycleOwner(), password -> Log.wtf("password", password));
 
-        mViewModel.getChangePassword().observe(getViewLifecycleOwner(), password -> {
-            if (!password.equals(mViewModel.getPassword().getValue()) || password.isEmpty()
-            || mViewModel.getPassword().getValue().isEmpty()) {
-                binding.changePasswordLayout.setError(getString(R.string.changePasswordError));
+        mViewModel.getPasswordRegisterRepeat().observe(getViewLifecycleOwner(), password -> {
+            if (!password.equals(mViewModel.getPasswordRegister().getValue()) || password.isEmpty()
+            || mViewModel.getPasswordRegister().getValue().isEmpty()) {
+                binding.passwordRegisterRepeatLayout.setError(getString(R.string.changePasswordError));
                 binding.registerButton3.setEnabled(false);
             } else {
-                binding.changePasswordLayout.setError(null);
+                binding.passwordRegisterRepeatLayout.setError(null);
                 binding.registerButton3.setEnabled(true);
             }
         });
 
 //        Log.wtf("email2", mViewModel.getEmail().getValue());
 
-        binding.password.addTextChangedListener(new TextWatcher() {
+        binding.passwordRegister.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -72,11 +72,11 @@ public class Registration3Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                mViewModel.setPassword(editable.toString());
+                mViewModel.setPasswordRegister(editable.toString());
             }
         });
 
-        binding.changePassword.addTextChangedListener(new TextWatcher() {
+        binding.passwordRegisterRepeat.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -89,7 +89,7 @@ public class Registration3Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                mViewModel.setChangePassword(editable.toString());
+                mViewModel.setPasswordRegisterRepeat(editable.toString());
             }
         });
 
@@ -97,8 +97,13 @@ public class Registration3Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String email = mViewModel.getEmail().getValue();
-                String password = mViewModel.getPassword().getValue();
+                String password = mViewModel.getPasswordRegister().getValue();
                 mViewModel.register(email, password);
+                mViewModel.checkToken().observe(getViewLifecycleOwner(), result -> {
+                    getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new WarrantiesListFragment())
+                            .addToBackStack(null)
+                            .commit();
+                });
             }
         });
 
