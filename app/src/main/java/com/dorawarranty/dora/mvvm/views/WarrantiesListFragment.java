@@ -1,5 +1,6 @@
 package com.dorawarranty.dora.mvvm.views;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dorawarranty.dora.BarsHelper;
 import com.dorawarranty.dora.adapters.WarrantyUnitAdapter;
 import com.dorawarranty.dora.databinding.WarrantiesListBinding;
+import com.dorawarranty.dora.mvvm.models.WarrantyUnit;
 import com.dorawarranty.dora.mvvm.viewModels.UsersViewModel;
 import com.dorawarranty.dora.mvvm.viewModels.WarrantyViewModel;
 import com.google.android.material.card.MaterialCardView;
@@ -62,7 +64,22 @@ public class WarrantiesListFragment extends Fragment {
         binding.warrantyListRecycler.setAdapter(mAdapter);
 
         mViewModel.getUnits().observe(getViewLifecycleOwner(), result -> {
+//            for (WarrantyUnit unit : result) {
+//                mViewModel.getUnitPhoto(unit.getId()).observe(getViewLifecycleOwner(), photoResult -> {
+//                    Bitmap photo = photoResult.getContentIfNotHandled();
+//                    if (photo != null) {
+//                        unit.setPhotoBmp(photo);
+//                    }
+//                });
+//            }
             mAdapter.initData(result);
+        });
+
+        mViewModel.getNewUnit().observe(getViewLifecycleOwner(), result -> {
+            WarrantyUnit unit = result.getContentIfNotHandled();
+            if (unit != null) {
+                mAdapter.addData(unit);
+            }
         });
     }
 }

@@ -1,5 +1,7 @@
 package com.dorawarranty.dora.mvvm.models;
 
+import android.graphics.Bitmap;
+
 public class WarrantyUnit {
 
     private int id;
@@ -11,6 +13,7 @@ public class WarrantyUnit {
     private String warrantyEndDate;
     private boolean isClaimable;
     private String photoUrl;
+    private Bitmap photoBmp;
 
     public WarrantyUnit(int id, String manufacturerName, String modelName,
                         String modelType) {
@@ -104,5 +107,13 @@ public class WarrantyUnit {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public Bitmap getPhotoBmp() {
+        return photoBmp;
+    }
+
+    public void setPhotoBmp(Bitmap photoBmp) {
+        this.photoBmp = photoBmp;
     }
 }

@@ -1,6 +1,7 @@
 package com.dorawarranty.dora.mvvm.viewModels;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -34,8 +35,16 @@ public class WarrantyViewModel extends AndroidViewModel {
         return mRepository.getUnit(unitId);
     }
 
+    public MutableLiveData<Event<Bitmap>> getUnitPhoto(int unitId) {
+        return mRepository.getUnitPhoto(unitId);
+    }
+
     public MutableLiveData<Event<WarrantyClaim>> getClaimStatus(int unitId) {
         return mRepository.getClaimStatus(unitId);
+    }
+
+    public MutableLiveData<Event<WarrantyUnit>> getNewUnit() {
+        return mRepository.getNewUnit();
     }
 
 }

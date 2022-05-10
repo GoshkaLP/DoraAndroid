@@ -23,14 +23,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_receipt"
-                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp"
                 android:layout_marginTop="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="16dp">
+                android:layout_marginStart="16dp">
 
                 <TextView
                     android:id="@+id/cardName"

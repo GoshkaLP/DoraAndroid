@@ -20,6 +20,7 @@ import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
 import java.util.List;
+import android.os.Handler;
 
 public class QrAnalyzer implements ImageAnalysis.Analyzer {
     private QrListener listener;
@@ -59,4 +60,5 @@ public class QrAnalyzer implements ImageAnalysis.Analyzer {
             });
         }
     }
+
 }

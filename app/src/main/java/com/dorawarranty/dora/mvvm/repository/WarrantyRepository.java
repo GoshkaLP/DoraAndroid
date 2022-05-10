@@ -1,6 +1,8 @@
 package com.dorawarranty.dora.mvvm.repository;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -20,7 +22,12 @@ public class WarrantyRepository {
     private ServiceLocator mServiceLocator;
     private MutableLiveData<ArrayList<WarrantyUnit>> mWarrantyUnits = new MutableLiveData<>();
     private MutableLiveData<Event<WarrantyUnit>> mWarrantyUnit = new MutableLiveData<>();
+    private MutableLiveData<Event<Bitmap>> mWarrantyUnitPhoto = new MutableLiveData<>();
     private MutableLiveData<Event<WarrantyClaim>> mWarrantyClaim = new MutableLiveData<>();
+    private Event<String> mCameraAddUnit;
+    private MutableLiveData<Event<WarrantyUnit>> mCustomerAddUnit = new MutableLiveData<>();
+
+    private boolean canProcess = true;
 
     public WarrantyRepository(Context context) {
         this.context = context;
@@ -71,6 +78,15 @@ public class WarrantyRepository {
         return mWarrantyUnit;
     }
 
+    public MutableLiveData<Event<Bitmap>> getUnitPhoto(int unitId) {
+        mServiceLocator.getNetworkLogic().getUnitPhoto(unitId, result -> {
+            Bitmap bmp = BitmapFactory.decodeStream(result.byteStream());
+            mWarrantyUnitPhoto.setValue(new Event<>(bmp));
+        });
+        return mWarrantyUnitPhoto;
+    }
+
+
     public MutableLiveData<Event<WarrantyClaim>> getClaimStatus(int unitId) {
         mServiceLocator.getNetworkLogic().getClaimStatus(unitId, result -> {
             String message = result.getMessage();
@@ -82,5 +98,41 @@ public class WarrantyRepository {
             }
         });
         return mWarrantyClaim;
+    }
+
+
+    public Event<String> scanQrUnit(String code) {
+        if (canProcess) {
+            canProcess = false;
+            mServiceLocator.getNetworkLogic().scanQrUnit(code, result -> {
+                String message = result.getMessage();
+                if (message.equals("WRONG_QR_CODE")) {
+                    mCameraAddUnit = new Event<>("Неверный QR-код!");
+                } else if (message.equals("UNIT_NOT_EXISTS")) {
+                    mCameraAddUnit = new Event<>("Данного товара не существует!");
+                } else if (message.equals("UNIT_ALREADY_ASSIGNED")) {
+                    mCameraAddUnit = new Event<>("Данный товар уже привязан!");
+                } else if (message.equals("SUCCESS")) {
+                    mCameraAddUnit = new Event<>("ok");
+                    Map<String, Object> unit = (Map<String, Object>) result.getData();
+                    mCustomerAddUnit.setValue(new Event<>(new WarrantyUnit(
+                            (int) ((Double) unit.get("id")).doubleValue(),
+                            (String) unit.get("manufacturer"),
+                            (String) unit.get("model"),
+                            (String) unit.get("modelType")
+                    )));
+                }
+            });
+        }
+
+        return mCameraAddUnit;
+    }
+
+    public void setCanProcess() {
+        canProcess = true;
+    }
+
+    public MutableLiveData<Event<WarrantyUnit>> getNewUnit() {
+        return mCustomerAddUnit;
     }
 }

@@ -4,11 +4,14 @@ import android.util.Log;
 
 import com.dorawarranty.dora.DI.ServiceLocator;
 import com.dorawarranty.dora.network.entity.AuthRequest;
+import com.dorawarranty.dora.network.entity.ChangePasswordRequest;
+import com.dorawarranty.dora.network.entity.ScanQrRequest;
 import com.dorawarranty.dora.network.entity.ServerResponse;
 import com.dorawarranty.dora.network.entity.ServerResponseArray;
 
 import java.util.function.Consumer;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -121,8 +124,66 @@ public class NetworkLogic {
         });
     }
 
+    public void getUnitPhoto(int unitId, Consumer<ResponseBody> Callback) {
+        api.getUnitPhoto(mServiceLocator.getSecurityService().getToken(), unitId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Callback.accept(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("requestError", "Connection error " + t.getMessage());
+            }
+        });
+    }
+
     public void getClaimStatus(int unitId, Consumer<ServerResponse> Callback) {
         api.getClaimStatus(mServiceLocator.getSecurityService().getToken(), unitId).enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                Callback.accept(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Log.e("requestError", "Connection error " + t.getMessage());
+            }
+        });
+    }
+
+    public void scanQrUnit(String code, Consumer<ServerResponse> Callback) {
+        ScanQrRequest request = new ScanQrRequest(code);
+        api.scanQrUnit(mServiceLocator.getSecurityService().getToken(), request).enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                Callback.accept(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Log.e("requestError", "Connection error " + t.getMessage());
+            }
+        });
+    }
+
+    public void logout(Consumer<ServerResponse> Callback) {
+        api.logout(mServiceLocator.getSecurityService().getToken()).enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                Callback.accept(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Log.e("requestError", "Connection error " + t.getMessage());
+            }
+        });
+    }
+
+    public void changePassword(String oldPassword, String newPassword, Consumer<ServerResponse> Callback) {
+        ChangePasswordRequest form = new ChangePasswordRequest(oldPassword, newPassword);
+        api.changePassword(mServiceLocator.getSecurityService().getToken(), form).enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 Callback.accept(response.body());

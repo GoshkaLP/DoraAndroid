@@ -23,6 +23,8 @@ public class Registration4Fragment extends Fragment {
 
     Registration4Binding binding;
     private UsersViewModel mViewModel;
+    private String WARRANTY_TAG = "warrantyList";
+
 
 
     @Nullable
@@ -77,16 +79,21 @@ public class Registration4Fragment extends Fragment {
                 String password = mViewModel.getPasswordAuth().getValue();
                 Log.wtf(email, password);
                 mViewModel.auth(email, password).observe(getViewLifecycleOwner(), result -> {
-                    Log.wtf("asdasasdasda", String.valueOf(result));
-                    if (result.getStatus() == 1) {
-                        mViewModel.resetAuth();
-                        getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new WarrantiesListFragment())
-                                .addToBackStack(null)
-                                .commit();
-                    } else if (result.getStatus() == 0) {
-                        mViewModel.resetAuth();
-                        binding.passwordAuthLayout.setError(result.getMessage());
+                    String message = result.getContentIfNotHandled();
+                    if (message != null) {
+                        if (message.equals("ok")) {
+                            WarrantiesListFragment warrantiesFragment = (WarrantiesListFragment) getParentFragmentManager().findFragmentByTag(WARRANTY_TAG);
+                            if (warrantiesFragment == null) {
+                                warrantiesFragment = new WarrantiesListFragment();
+                            }
+                            getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, warrantiesFragment)
+                                    .addToBackStack(null)
+                                    .commit();
+                        } else {
+                            binding.passwordAuthLayout.setError(message);
+                        }
                     }
+
                 });
             }
         });

@@ -34,6 +34,11 @@ public class WarrantyUnitAdapter extends RecyclerView.Adapter<WarrantyUnitHolder
         notifyDataSetChanged();
     }
 
+    public void addData(WarrantyUnit unit) {
+        mUnits.add(0, unit);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public WarrantyUnitHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,6 +51,7 @@ public class WarrantyUnitAdapter extends RecyclerView.Adapter<WarrantyUnitHolder
         WarrantyUnit unit = mUnits.get(position);
         holder.getCardName().setText(unit.getManufacturerName() + ' ' + unit.getModelName());
         holder.getCardType().setText(unit.getModelType());
+//        holder.getCardPhoto().setImageBitmap(unit.getPhotoBmp());
         holder.getCardLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

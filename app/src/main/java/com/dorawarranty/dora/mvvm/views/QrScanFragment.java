@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.dorawarranty.dora.R;
 import com.dorawarranty.dora.mvvm.models.CameraModel;
 import com.dorawarranty.dora.mvvm.viewModels.CameraXViewModel;
 import com.dorawarranty.dora.mvvm.viewModels.UsersViewModel;
@@ -50,6 +51,9 @@ public class QrScanFragment extends Fragment {
     QrScanBinding binding;
     private ActivityResultLauncher<String> mPermissionsResult;
     private CameraXViewModel mViewModel;
+
+    private static String WARRANTY_TAG = "warrantyList";
+
 
 
     @Nullable
@@ -83,6 +87,7 @@ public class QrScanFragment extends Fragment {
 
         requestCamera();
 
+
     }
 
     private void requestCamera() {
@@ -103,6 +108,33 @@ public class QrScanFragment extends Fragment {
                             cameraModel.getCameraSelector(), cameraModel.getPreview());
                     cameraProvider.bindToLifecycle(getViewLifecycleOwner(),
                             cameraModel.getCameraSelector(), cameraModel.getImageAnalysis());
+
+                    mViewModel.scanQrUnit().observe(getViewLifecycleOwner(), result -> {
+                        String message = result.getContentIfNotHandled();
+                        if (message != null) {
+                            if (!message.equals("ok")) {
+                                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Товар успешно добавлен!", Toast.LENGTH_SHORT).show();
+                                WarrantiesListFragment warrantiesFragment = (WarrantiesListFragment) getParentFragmentManager().findFragmentByTag(WARRANTY_TAG);
+                                if (warrantiesFragment == null) {
+                                    warrantiesFragment = new WarrantiesListFragment();
+                                }
+                                getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, warrantiesFragment, WARRANTY_TAG)
+                                        .addToBackStack(null)
+                                        .commit();
+                            }
+                        }
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mViewModel.setCanProcess();
+                            }
+                        }, 3000);
+
+                    });
+
                 } catch (Exception e) {}
             }
         });

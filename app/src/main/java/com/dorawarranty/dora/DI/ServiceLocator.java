@@ -21,7 +21,6 @@ public class ServiceLocator {
     private UsersRepository mUsersRepository;
     private WarrantyRepository mWarrantyRepository;
 
-
     public ServiceLocator(Context context) {
         serviceLocator = this;
         this.context = context;

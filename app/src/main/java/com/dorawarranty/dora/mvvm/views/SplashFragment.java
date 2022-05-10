@@ -18,6 +18,7 @@ import com.dorawarranty.dora.mvvm.viewModels.UsersViewModel;
 public class SplashFragment extends Fragment {
     SplashBinding binding;
     private UsersViewModel mViewModel;
+    private String WARRANTY_TAG = "warrantyList";
 
 
     @Nullable
@@ -38,7 +39,11 @@ public class SplashFragment extends Fragment {
 
         mViewModel.checkToken().observe(getViewLifecycleOwner(), result -> {
             if (result) {
-                getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new WarrantiesListFragment())
+                WarrantiesListFragment warrantiesFragment = (WarrantiesListFragment) getParentFragmentManager().findFragmentByTag(WARRANTY_TAG);
+                if (warrantiesFragment == null) {
+                    warrantiesFragment = new WarrantiesListFragment();
+                }
+                getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, warrantiesFragment, WARRANTY_TAG)
                         .addToBackStack(null)
                         .commit();
             } else {

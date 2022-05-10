@@ -12,7 +12,7 @@
     <string name="buttonLogout">Выйти</string>
     <string name="changePassword">Смена пароля</string>
     <string name="oldPassword">Ваш старый пароль</string>
-    <string name="newPassword">Выш новый пароль</string>
+    <string name="newPassword">Ваш новый пароль</string>
     <string name="newPasswordAgain">Ваш новый пароль еще раз</string>
     <string name="applicationHeader">Заявка на обслуживание</string>
     <string name="applicationProblem">Опишите кратко вашу проблему</string>
@@ -22,4 +22,7 @@
     <string name="changePasswordError">Введенные пароли не совпадают</string>
     <string name="showServiceCentres">Просмотреть гарантийные центры</string>
     <string name="showClaimStatus">Статус гарантийной заявки</string>
+    <string name="profileHello">Здравствуйте!</string>
+    <string name="changePasswordButton">Сменить пароль</string>
+    <string name="changePasswordSuccess">Ваш пароль был успешно сменён!</string>
 </resources>

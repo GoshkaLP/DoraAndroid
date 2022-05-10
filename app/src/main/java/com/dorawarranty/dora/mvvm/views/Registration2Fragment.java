@@ -76,20 +76,21 @@ public class Registration2Fragment extends Fragment {
             public void onClick(View view) {
 
                 mViewModel.checkEmail(mViewModel.getEmail().getValue()).observe(getViewLifecycleOwner(), result -> {
-                    if (result.getStatus() == 0) {
-                        mViewModel.resetCheckEmail();
-                        getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration3Fragment())
-                                .addToBackStack(null)
-                                .commit();
-                    } else if (result.getStatus() == 1) {
-                        mViewModel.resetCheckEmail();
-                        getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration4Fragment())
-                                .addToBackStack(null)
-                                .commit();
-                    } else if (result.getStatus() == 2) {
-                        mViewModel.resetCheckEmail();
-                        binding.emailLayout.setError(result.getMessage());
+                    String message = result.getContentIfNotHandled();
+                    if (message != null) {
+                        if (message.equals("ok")) {
+                            getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration3Fragment())
+                                    .addToBackStack(null)
+                                    .commit();
+                        } else if (message.equals("exists")) {
+                            getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new Registration4Fragment())
+                                    .addToBackStack(null)
+                                    .commit();
+                        } else {
+                            binding.emailLayout.setError(message);
+                        }
                     }
+
 
                 });
             }

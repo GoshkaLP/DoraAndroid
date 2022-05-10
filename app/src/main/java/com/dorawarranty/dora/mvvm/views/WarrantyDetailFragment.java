@@ -1,6 +1,7 @@
 package com.dorawarranty.dora.mvvm.views;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +50,13 @@ public class WarrantyDetailFragment extends Fragment {
             mViewModel.getUnit(unitId).observe(getViewLifecycleOwner(), result -> {
                 WarrantyUnit unit = result.getContentIfNotHandled();
                 if (unit != null) {
+//                    mViewModel.getUnitPhoto(unit.getId()).observe(getViewLifecycleOwner(), photoResult -> {
+//                        Bitmap bmp = photoResult.getContentIfNotHandled();
+//                        if (bmp != null) {
+//                            Log.wtf("bmpStatus", "got");
+//                            binding.productPhoto.setImageBitmap(bmp);
+//                        }
+//                    });
                     binding.productName.setText(
                             unit.getManufacturerName() + " " + unit.getModelName());
                     binding.productType.setText(

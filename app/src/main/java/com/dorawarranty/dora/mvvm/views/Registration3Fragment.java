@@ -25,6 +25,8 @@ public class Registration3Fragment extends Fragment {
     Registration3Binding binding;
 
     private UsersViewModel mViewModel;
+    private String WARRANTY_TAG = "warrantyList";
+
 
 
     @Nullable
@@ -100,7 +102,11 @@ public class Registration3Fragment extends Fragment {
                 String password = mViewModel.getPasswordRegister().getValue();
                 mViewModel.register(email, password);
                 mViewModel.checkToken().observe(getViewLifecycleOwner(), result -> {
-                    getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new WarrantiesListFragment())
+                    WarrantiesListFragment warrantiesFragment = (WarrantiesListFragment) getParentFragmentManager().findFragmentByTag(WARRANTY_TAG);
+                    if (warrantiesFragment == null) {
+                        warrantiesFragment = new WarrantiesListFragment();
+                    }
+                    getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, warrantiesFragment)
                             .addToBackStack(null)
                             .commit();
                 });
