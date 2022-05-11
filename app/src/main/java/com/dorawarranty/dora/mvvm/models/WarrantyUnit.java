@@ -15,10 +15,11 @@ public class WarrantyUnit {
     private String photoUrl;
     private Bitmap photoBmp;
 
-    public WarrantyUnit(int id, String manufacturerName, String modelName,
+    public WarrantyUnit(int id, String manufacturerName, int manufacturerId, String modelName,
                         String modelType) {
         this.id = id;
         this.manufacturerName = manufacturerName;
+        this.manufacturerId = manufacturerId;
         this.modelName = modelName;
         this.modelType = modelType;
     }

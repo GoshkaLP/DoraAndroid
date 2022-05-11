@@ -44,67 +44,71 @@ public class WarrantyDetailFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(requireActivity()).get(WarrantyViewModel.class);
 
-        Bundle arguments = getArguments();
-        if (arguments != null && !arguments.isEmpty()) {
-            int unitId = arguments.getInt("unitId");
-            mViewModel.getUnit(unitId).observe(getViewLifecycleOwner(), result -> {
-                WarrantyUnit unit = result.getContentIfNotHandled();
-                if (unit != null) {
-//                    mViewModel.getUnitPhoto(unit.getId()).observe(getViewLifecycleOwner(), photoResult -> {
-//                        Bitmap bmp = photoResult.getContentIfNotHandled();
-//                        if (bmp != null) {
-//                            Log.wtf("bmpStatus", "got");
-//                            binding.productPhoto.setImageBitmap(bmp);
-//                        }
-//                    });
-                    binding.productName.setText(
-                            unit.getManufacturerName() + " " + unit.getModelName());
-                    binding.productType.setText(
-                            "Тип продукта: " + unit.getModelType());
-                    binding.productManufacturer.setText(
-                            "Производитель: " + unit.getManufacturerName());
-                    binding.productWarrantyEnd.setText(
-                            "Дата окончания гарантии: " + unit.getWarrantyEndDate());
+        WarrantyUnit unit = mViewModel.getSelectedUnit().getValue();
+        mViewModel.getUnit(unit.getId()).observe(getViewLifecycleOwner(), result -> {
+            WarrantyUnit unitInfo = result.getContentIfNotHandled();
+            if (unitInfo != null) {
 
-                    binding.productButton.setEnabled(unit.isClaimable());
 
-                    mViewModel.getClaimStatus(unitId).observe(getViewLifecycleOwner(), statusEvent -> {
-                        WarrantyClaim claim = statusEvent.getContentIfNotHandled();
-                        if (claim != null) {
-                            if (claim.getStatus().equals("no")) {
-                                binding.productButton.setText(R.string.showServiceCentres);
-                                binding.productButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Log.wtf("service centres", "");
-                                    }
-                                });
-                            } else {
-                                binding.productButton.setText(R.string.showClaimStatus);
-                                binding.productButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Log.wtf("claim status", "");
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                        builder.setMessage(claim.getStatus())
-                                                .setTitle("Статус вашей заявки");
+                mViewModel.getUnitPhoto(unit.getId()).observe(getViewLifecycleOwner(), photoResult -> {
+                    Bitmap bmp = photoResult.getContentIfNotHandled();
+                    if (bmp != null) {
+                        Log.wtf("bmpStatus", "got");
+                        binding.productPhoto.setImageBitmap(bmp);
+                    }
+                });
 
-                                        builder.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                            }
-                                        });
-                                        AlertDialog dialog = builder.create();
-                                        dialog.show();
-                                    }
-                                });
-                            }
-                            binding.warrantyDetailLayout.setVisibility(View.VISIBLE);
+
+                binding.productName.setText(
+                        unitInfo.getManufacturerName() + " " + unitInfo.getModelName());
+                binding.productType.setText(
+                        "Тип продукта: " + unitInfo.getModelType());
+                binding.productManufacturer.setText(
+                        "Производитель: " + unitInfo.getManufacturerName());
+                binding.productWarrantyEnd.setText(
+                        "Дата окончания гарантии: " + unitInfo.getWarrantyEndDate());
+
+                binding.productButton.setEnabled(unitInfo.isClaimable());
+
+                mViewModel.getClaimStatus(unitInfo.getId()).observe(getViewLifecycleOwner(), statusEvent -> {
+                    WarrantyClaim claim = statusEvent.getContentIfNotHandled();
+                    if (claim != null) {
+                        if (claim.getStatus().equals("no")) {
+                            binding.productButton.setText(R.string.showServiceCentres);
+                            binding.productButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+//                                        Log.wtf("service centres", "");
+                                    getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new WarrantyServiceCenterFragment())
+                                            .addToBackStack(null)
+                                            .commit();
+                                }
+                            });
+                        } else {
+                            binding.productButton.setText(R.string.showClaimStatus);
+                            binding.productButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+//                                        Log.wtf("claim status", "");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage(claim.getStatus())
+                                            .setTitle("Статус вашей заявки");
+
+                                    builder.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                        }
+                                    });
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
+                            });
                         }
-                    });
+                        binding.warrantyDetailLayout.setVisibility(View.VISIBLE);
+                    }
+                });
 
-                }
-            });
-        }
+            }
+        });
     }
 }

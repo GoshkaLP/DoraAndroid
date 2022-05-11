@@ -13,6 +13,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         app:menu="@menu/top_app_bar"
         style="@style/Widget.App.Toolbar"
         app:layout_collapseMode="pin"
+        app:navigationIcon="@drawable/ic_dora_icon_appbar"
         />
 </com.google.android.material.appbar.AppBarLayout>
 

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorawarranty.dora.R;
+import com.dorawarranty.dora.adapters.listeners.UnitOnClickListener;
 import com.dorawarranty.dora.adapters.viewHolders.WarrantyUnitHolder;
 import com.dorawarranty.dora.databinding.CardBinding;
 import com.dorawarranty.dora.mvvm.models.WarrantyUnit;
@@ -24,9 +25,11 @@ public class WarrantyUnitAdapter extends RecyclerView.Adapter<WarrantyUnitHolder
 
     private WarrantiesListFragment mFragment;
     private ArrayList<WarrantyUnit> mUnits = new ArrayList<>();
+    private UnitOnClickListener mCallback;
 
-    public WarrantyUnitAdapter(WarrantiesListFragment fragment) {
+    public WarrantyUnitAdapter(WarrantiesListFragment fragment, UnitOnClickListener callback) {
         mFragment = fragment;
+        mCallback = callback;
     }
 
     public void initData(ArrayList<WarrantyUnit> units) {
@@ -55,13 +58,14 @@ public class WarrantyUnitAdapter extends RecyclerView.Adapter<WarrantyUnitHolder
         holder.getCardLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("unitId", unit.getId());
-                WarrantyDetailFragment newFragment = new WarrantyDetailFragment();
-                newFragment.setArguments(bundle);
-                mFragment.getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, newFragment)
-                        .addToBackStack(null)
-                        .commit();
+                mCallback.onClick(unit);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("unitId", unit.getId());
+//                WarrantyDetailFragment newFragment = new WarrantyDetailFragment();
+//                newFragment.setArguments(bundle);
+//                mFragment.getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, newFragment)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
     }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="12dp"
+    android:layout_marginEnd="12dp"
+    android:id="@+id/serviceCenterLayout"
+    android:background="?android:attr/selectableItemBackground"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_place" />
+
+    <TextView
+        android:id="@+id/serviceCenterHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Text"
+        android:layout_marginStart="32dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        />
+
+</LinearLayout>

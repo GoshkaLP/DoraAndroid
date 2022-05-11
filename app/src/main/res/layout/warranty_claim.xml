@@ -22,7 +22,6 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <TextView
-            android:id="@+id/productType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -39,6 +38,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/claimProblem"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:hint="@string/applicationHint" />
@@ -51,7 +51,7 @@
             android:gravity="center_horizontal">
 
             <Button
-                android:id="@+id/sendApplication"
+                android:id="@+id/sendClaim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"

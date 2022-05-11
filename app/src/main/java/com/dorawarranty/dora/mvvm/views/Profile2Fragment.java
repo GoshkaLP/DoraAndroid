@@ -24,6 +24,9 @@ public class Profile2Fragment extends Fragment {
     Profile2Binding binding;
     private UsersViewModel mViewModel;
 
+    private static String PROFILE_TAG = "userProfile";
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -126,6 +129,13 @@ public class Profile2Fragment extends Fragment {
                             builder.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    Profile1Fragment profileFragment = (Profile1Fragment) getParentFragmentManager().findFragmentByTag(PROFILE_TAG);
+                                    if (profileFragment == null) {
+                                        profileFragment = new Profile1Fragment();
+                                    }
+                                    getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, profileFragment, PROFILE_TAG)
+                                            .addToBackStack(null)
+                                            .commit();
                                 }
                             });
                             AlertDialog dialog = builder.create();

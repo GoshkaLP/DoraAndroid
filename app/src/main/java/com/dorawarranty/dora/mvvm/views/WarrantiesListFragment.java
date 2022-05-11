@@ -15,7 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dorawarranty.dora.BarsHelper;
+import com.dorawarranty.dora.R;
 import com.dorawarranty.dora.adapters.WarrantyUnitAdapter;
+import com.dorawarranty.dora.adapters.listeners.UnitOnClickListener;
 import com.dorawarranty.dora.databinding.WarrantiesListBinding;
 import com.dorawarranty.dora.mvvm.models.WarrantyUnit;
 import com.dorawarranty.dora.mvvm.viewModels.UsersViewModel;
@@ -26,6 +28,7 @@ public class WarrantiesListFragment extends Fragment {
     WarrantiesListBinding binding;
     private WarrantyViewModel mViewModel;
     private WarrantyUnitAdapter mAdapter;
+//    private UnitOnClickListener callback;
 
     @Nullable
     @Override
@@ -60,7 +63,18 @@ public class WarrantiesListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mViewModel = new ViewModelProvider(requireActivity()).get(WarrantyViewModel.class);
-        mAdapter = new WarrantyUnitAdapter(this);
+
+        mAdapter = new WarrantyUnitAdapter(this, new UnitOnClickListener() {
+            @Override
+            public void onClick(WarrantyUnit unit) {
+                if (unit != null) {
+                    mViewModel.setSelectedUnit(unit);
+                    getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new WarrantyDetailFragment())
+                        .addToBackStack(null)
+                        .commit();
+                }
+            }
+        });
         binding.warrantyListRecycler.setAdapter(mAdapter);
 
         mViewModel.getUnits().observe(getViewLifecycleOwner(), result -> {

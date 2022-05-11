@@ -20,7 +20,7 @@ public class WarrantyUnitHolder extends RecyclerView.ViewHolder {
         super(binding.getRoot());
         cardName = binding.cardName;
         cardType = binding.cardType;
-        cardPhoto = binding.cardPhoto;
+//        cardPhoto = binding.cardPhoto;
         cardLayout = binding.cardView;
     }
 
@@ -32,9 +32,9 @@ public class WarrantyUnitHolder extends RecyclerView.ViewHolder {
         return cardType;
     }
 
-    public ImageView getCardPhoto() {
-        return cardPhoto;
-    }
+//    public ImageView getCardPhoto() {
+//        return cardPhoto;
+//    }
 
     public View getCardLayout() {
         return cardLayout;

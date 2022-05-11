@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/warrantyDetailLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="60dp"
@@ -25,7 +25,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="25dp"
@@ -33,9 +33,9 @@
 
             <ImageView
                 android:id="@+id/productPhoto"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_plug" />
+                 />
 
         </LinearLayout>
 
@@ -66,13 +66,20 @@
             android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
-        <Button
-            android:id="@+id/productButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:orientation="vertical"
             android:layout_marginTop="50dp"
-            android:text="@string/showServiceCentres" />
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/productButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/showServiceCentres" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

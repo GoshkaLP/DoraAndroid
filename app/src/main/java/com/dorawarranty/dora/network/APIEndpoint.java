@@ -1,5 +1,6 @@
 package com.dorawarranty.dora.network;
 
+import com.dorawarranty.dora.network.entity.AddClaimRequest;
 import com.dorawarranty.dora.network.entity.AuthRequest;
 import com.dorawarranty.dora.network.entity.ChangePasswordRequest;
 import com.dorawarranty.dora.network.entity.ScanQrRequest;
@@ -33,10 +34,10 @@ public interface APIEndpoint {
     Call<ServerResponseArray> getUnits(@Header("Authorization") String bearer);
 
     @GET("/api/products/units/{unitId}")
-    @Headers({"Connection: close"})
     Call<ServerResponse> getUnit(@Header("Authorization") String bearer, @Path("unitId") int unitId);
 
     @GET("/api/products/units/photo/{unitId}")
+    @Headers({"Connection: close"})
     Call<ResponseBody> getUnitPhoto(@Header("Authorization") String bearer, @Path("unitId") int unitId);
 
     @GET("/api/warrantyClaim/status/{unitId}")
@@ -50,4 +51,10 @@ public interface APIEndpoint {
 
     @POST("/api/users/change/password/email")
     Call<ServerResponse> changePassword(@Header("Authorization") String bearer, @Body ChangePasswordRequest changePassword);
+
+    @GET("/api/serviceCenter/{manufacturerId}")
+    Call<ServerResponseArray> getServiceCenters(@Header("Authorization") String bearer, @Path("manufacturerId") int manufacturerId);
+
+    @POST("/api/warrantyClaim/create")
+    Call<ServerResponse> createClaim(@Header("Authorization") String bearer, @Body AddClaimRequest claim);
 }

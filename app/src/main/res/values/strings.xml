@@ -20,9 +20,10 @@
     <string name="serviceCentersList">Список гарантийных центров</string>
 
     <string name="changePasswordError">Введенные пароли не совпадают</string>
-    <string name="showServiceCentres">Просмотреть гарантийные центры</string>
+    <string name="showServiceCentres">Посмотреть гарантийные центры</string>
     <string name="showClaimStatus">Статус гарантийной заявки</string>
     <string name="profileHello">Здравствуйте!</string>
     <string name="changePasswordButton">Сменить пароль</string>
     <string name="changePasswordSuccess">Ваш пароль был успешно сменён!</string>
+    <string name="warrantiesListHeader">Ваши товары</string>
 </resources>

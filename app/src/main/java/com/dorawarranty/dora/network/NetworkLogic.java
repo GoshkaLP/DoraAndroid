@@ -3,6 +3,7 @@ package com.dorawarranty.dora.network;
 import android.util.Log;
 
 import com.dorawarranty.dora.DI.ServiceLocator;
+import com.dorawarranty.dora.network.entity.AddClaimRequest;
 import com.dorawarranty.dora.network.entity.AuthRequest;
 import com.dorawarranty.dora.network.entity.ChangePasswordRequest;
 import com.dorawarranty.dora.network.entity.ScanQrRequest;
@@ -26,8 +27,8 @@ public class NetworkLogic {
     private ServiceLocator mServiceLocator;
 
     public NetworkLogic() {
-//        baseUrl = "https://dora.gmrybkin.com";
-        baseUrl = "http://10.0.2.2:8086";
+        baseUrl = "https://dora.gmrybkin.com";
+//        baseUrl = "http://10.0.2.2:8086";
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -125,16 +126,16 @@ public class NetworkLogic {
     }
 
     public void getUnitPhoto(int unitId, Consumer<ResponseBody> Callback) {
-        api.getUnitPhoto(mServiceLocator.getSecurityService().getToken(), unitId).enqueue(new Callback<ResponseBody>() {
+        api.getUnitPhoto(mServiceLocator.getSecurityService().getToken(), unitId).enqueue(new CallbackWithRetry<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Callback.accept(response.body());
             }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("requestError", "Connection error " + t.getMessage());
-            }
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Log.e("requestError", "Connection error " + t.getMessage());
+//            }
         });
     }
 
@@ -184,6 +185,35 @@ public class NetworkLogic {
     public void changePassword(String oldPassword, String newPassword, Consumer<ServerResponse> Callback) {
         ChangePasswordRequest form = new ChangePasswordRequest(oldPassword, newPassword);
         api.changePassword(mServiceLocator.getSecurityService().getToken(), form).enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                Callback.accept(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Log.e("requestError", "Connection error " + t.getMessage());
+            }
+        });
+    }
+
+    public void getServiceCenters(int manufacturerId, Consumer<ServerResponseArray> Callback) {
+        api.getServiceCenters(mServiceLocator.getSecurityService().getToken(), manufacturerId).enqueue(new Callback<ServerResponseArray>() {
+            @Override
+            public void onResponse(Call<ServerResponseArray> call, Response<ServerResponseArray> response) {
+                Callback.accept(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponseArray> call, Throwable t) {
+                Log.e("requestError", "Connection error " + t.getMessage());
+            }
+        });
+    }
+
+    public void createClaim(int unitId, int serviceCenterId, String problem, Consumer<ServerResponse> Callback) {
+        AddClaimRequest claim = new AddClaimRequest(unitId, serviceCenterId, problem);
+        api.createClaim(mServiceLocator.getSecurityService().getToken(), claim).enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 Callback.accept(response.body());

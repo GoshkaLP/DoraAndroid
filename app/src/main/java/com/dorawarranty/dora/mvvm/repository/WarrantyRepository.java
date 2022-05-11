@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.dorawarranty.dora.DI.ServiceLocator;
 import com.dorawarranty.dora.Event;
 import com.dorawarranty.dora.adapters.WarrantyUnitAdapter;
+import com.dorawarranty.dora.mvvm.models.ServiceCenter;
 import com.dorawarranty.dora.mvvm.models.WarrantyClaim;
 import com.dorawarranty.dora.mvvm.models.WarrantyUnit;
 
@@ -26,6 +27,8 @@ public class WarrantyRepository {
     private MutableLiveData<Event<WarrantyClaim>> mWarrantyClaim = new MutableLiveData<>();
     private Event<String> mCameraAddUnit;
     private MutableLiveData<Event<WarrantyUnit>> mCustomerAddUnit = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<ServiceCenter>> mServiceCenters = new MutableLiveData<>();
+    private MutableLiveData<Event<String>> createClaimResult = new MutableLiveData<>();
 
     private boolean canProcess = true;
 
@@ -45,6 +48,7 @@ public class WarrantyRepository {
                         res.add(new WarrantyUnit(
                                 (int) ((Double) unit_req.get("id")).doubleValue(),
                                 (String) unit_req.get("manufacturer"),
+                                (int) ((Double) unit_req.get("manufacturerId")).doubleValue(),
                                 (String) unit_req.get("model"),
                                 (String) unit_req.get("modelType")
                         ));
@@ -118,6 +122,7 @@ public class WarrantyRepository {
                     mCustomerAddUnit.setValue(new Event<>(new WarrantyUnit(
                             (int) ((Double) unit.get("id")).doubleValue(),
                             (String) unit.get("manufacturer"),
+                            (int) ((Double) unit.get("manufacturerId")).doubleValue(),
                             (String) unit.get("model"),
                             (String) unit.get("modelType")
                     )));
@@ -134,5 +139,40 @@ public class WarrantyRepository {
 
     public MutableLiveData<Event<WarrantyUnit>> getNewUnit() {
         return mCustomerAddUnit;
+    }
+
+    public MutableLiveData<ArrayList<ServiceCenter>> getServiceCenters(int manufacturerId) {
+        mServiceLocator.getNetworkLogic().getServiceCenters(manufacturerId, result -> {
+            String message = result.getMessage();
+            if (message.equals("SUCCESS")) {
+                ArrayList<ServiceCenter> res = new ArrayList<>();
+                List data = result.getData();
+                for (Object val : data) {
+                    Map<String, Object> serviceCenter = (Map<String, Object>) val;
+                    res.add(new ServiceCenter(
+                            (int) ((Double) serviceCenter.get("id")).doubleValue(),
+                            (String) serviceCenter.get("name"),
+                            (String) serviceCenter.get("address"),
+                            Double.parseDouble((String) serviceCenter.get("latitude")),
+                            Double.parseDouble((String) serviceCenter.get("longitude"))
+                    ));
+
+                }
+                mServiceCenters.setValue(res);
+            }
+        });
+        return mServiceCenters;
+    }
+
+    public MutableLiveData<Event<String>> createClaim(int unitId, int serviceCenterId, String problem) {
+        mServiceLocator.getNetworkLogic().createClaim(unitId, serviceCenterId, problem, result -> {
+            String message = result.getMessage();
+            if (message.equals("WARRANTY_PERIOD_EXPIRED")) {
+                createClaimResult.setValue(new Event<>("Гарантийный период данного товара истек!"));
+            } else if (message.equals("SUCCESS")) {
+                createClaimResult.setValue(new Event<>("ok"));
+            }
+        });
+        return createClaimResult;
     }
 }
