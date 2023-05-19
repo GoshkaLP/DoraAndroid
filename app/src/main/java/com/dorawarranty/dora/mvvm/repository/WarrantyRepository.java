@@ -5,11 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dorawarranty.dora.DI.ServiceLocator;
 import com.dorawarranty.dora.Event;
 import com.dorawarranty.dora.adapters.WarrantyUnitAdapter;
+import com.dorawarranty.dora.database.WarrantyDatabase;
+import com.dorawarranty.dora.database.dao.WarrantyDao;
 import com.dorawarranty.dora.mvvm.models.ServiceCenter;
 import com.dorawarranty.dora.mvvm.models.WarrantyClaim;
 import com.dorawarranty.dora.mvvm.models.WarrantyUnit;
@@ -32,13 +35,24 @@ public class WarrantyRepository {
 
     private boolean canProcess = true;
 
+
+    private WarrantyDao mWarrantyDao;
+
     public WarrantyRepository(Context context) {
         this.context = context;
         mServiceLocator = ServiceLocator.getInstance();
+
+        WarrantyDatabase db = WarrantyDatabase.getDatabase(context);
+        mWarrantyDao = db.warrantyDao();
     }
 
     public MutableLiveData<ArrayList<WarrantyUnit>> getUnits() {
-        mServiceLocator.getNetworkLogic().getUnits(result -> {
+        if (mWarrantyDao.linesCount() > 0) {
+            Log.d("Loading units", "all units from DB");
+            ArrayList<WarrantyUnit> warrantyUnits = new ArrayList<WarrantyUnit>(mWarrantyDao.getAll());
+            mWarrantyUnits.setValue(warrantyUnits);
+        } else {
+            mServiceLocator.getNetworkLogic().getUnits(result -> {
                 String message = result.getMessage();
                 if (message.equals("SUCCESS")) {
                     ArrayList<WarrantyUnit> res = new ArrayList<>();
@@ -52,41 +66,77 @@ public class WarrantyRepository {
                                 (String) unit_req.get("model"),
                                 (String) unit_req.get("modelType")
                         ));
-
                     }
                     mWarrantyUnits.setValue(res);
+                    try {
+                        if (mWarrantyDao.linesCount() == 0) {
+                            WarrantyUnit[] warrantyUnitDb = res.toArray(new WarrantyUnit[res.size()]);
+                            mWarrantyDao.insertAll(warrantyUnitDb);
+                        }
+                    } catch (Exception e) {
+                        Log.e("error db", "add all warranties", e);
+                    }
                 }
+                Log.d("Loading units", "all units from API");
             });
+        }
         return mWarrantyUnits;
     }
 
     public MutableLiveData<Event<WarrantyUnit>> getUnit(int unitId) {
-        mServiceLocator.getNetworkLogic().getUnit(unitId, result -> {
-            String message = result.getMessage();
-            if (message.equals("SUCCESS")) {
-                Map<String, Object> unit = result.getData();
-                mWarrantyUnit.setValue(new Event<>(
-                        new WarrantyUnit(
-                            (int) ((Double) unit.get("id")).doubleValue(),
-                            (String) unit.get("manufacturer"),
-                            (int) ((Double) unit.get("manufacturerId")).doubleValue(),
-                            (String) unit.get("model"),
-                            (String) unit.get("modelType"),
-                            (String) unit.get("serialNumber"),
-                            (String) unit.get("warrantyEndDate"),
-                            (boolean) unit.get("claimable"),
-                            (String) unit.get("photo")
-                )));
-            }
-        });
+        if (mWarrantyDao.checkWarrantyInfo(unitId) != 0) {
+            WarrantyUnit warrantyUnit = mWarrantyDao.getWarrantyUnit(unitId);
+            mWarrantyUnit.setValue(new Event<>(warrantyUnit));
+            Log.d("Loading unit", "info from DB");
+        } else {
+            mServiceLocator.getNetworkLogic().getUnit(unitId, result -> {
+                String message = result.getMessage();
+                if (message.equals("SUCCESS")) {
+                    Map<String, Object> unit = result.getData();
+                    String manufacturerName = (String) unit.get("manufacturer");
+                    int manufacturerId = (int) ((Double) unit.get("manufacturerId")).doubleValue();
+                    String modelName = (String) unit.get("model");
+                    String modelType = (String) unit.get("modelType");
+                    String serialNumber = (String) unit.get("serialNumber");
+                    String warrantyEndDate = (String) unit.get("warrantyEndDate");
+                    boolean isClaimable = (boolean) unit.get("claimable");
+                    String photoUrl = (String) unit.get("photo");
+                    mWarrantyUnit.setValue(new Event<>(
+                            new WarrantyUnit(
+                                    unitId, manufacturerName, manufacturerId, modelName, modelType, serialNumber,
+                                    warrantyEndDate, isClaimable, photoUrl
+                            )));
+                    try {
+                        mWarrantyDao.updateWarrantyInfo(unitId, manufacturerName, manufacturerId, modelName,
+                                modelType, serialNumber, warrantyEndDate, isClaimable, photoUrl);
+                    } catch (Exception e) {
+                        Log.e("error db", "add warranty info", e);
+                    }
+                }
+                Log.d("Loading unit", "info from API");
+            });
+        }
         return mWarrantyUnit;
     }
 
     public MutableLiveData<Event<Bitmap>> getUnitPhoto(int unitId) {
-        mServiceLocator.getNetworkLogic().getUnitPhoto(unitId, result -> {
-            Bitmap bmp = BitmapFactory.decodeStream(result.byteStream());
+        if (mWarrantyDao.checkWarrantyImage(unitId) != 0) {
+            Bitmap bmp = mWarrantyDao.getWarrantyImage(unitId);
             mWarrantyUnitPhoto.setValue(new Event<>(bmp));
-        });
+            Log.d("Loading unit photo", "photo from DB");
+        }
+        else {
+            mServiceLocator.getNetworkLogic().getUnitPhoto(unitId, result -> {
+                Bitmap bmp = BitmapFactory.decodeStream(result.byteStream());
+                mWarrantyUnitPhoto.setValue(new Event<>(bmp));
+                try {
+                    mWarrantyDao.updatePhoto(unitId, bmp);
+                } catch (Exception e) {
+                    Log.e("error db", "add photo", e);
+                }
+            });
+            Log.d("Loading unit photo", "photo from API");
+        }
         return mWarrantyUnitPhoto;
     }
 
@@ -119,13 +169,19 @@ public class WarrantyRepository {
                 } else if (message.equals("SUCCESS")) {
                     mCameraAddUnit = new Event<>("ok");
                     Map<String, Object> unit = (Map<String, Object>) result.getData();
-                    mCustomerAddUnit.setValue(new Event<>(new WarrantyUnit(
+                    WarrantyUnit newUnit = new WarrantyUnit(
                             (int) ((Double) unit.get("id")).doubleValue(),
                             (String) unit.get("manufacturer"),
                             (int) ((Double) unit.get("manufacturerId")).doubleValue(),
                             (String) unit.get("model"),
                             (String) unit.get("modelType")
-                    )));
+                    );
+                    mCustomerAddUnit.setValue(new Event<>(newUnit));
+                    try {
+                        mWarrantyDao.insertWarrantyUnit(newUnit);
+                    } catch (Exception e) {
+                        Log.e("error db", "add new unit to db");
+                    }
                 }
             });
         }

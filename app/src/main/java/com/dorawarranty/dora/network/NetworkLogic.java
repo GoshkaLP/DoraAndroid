@@ -1,6 +1,11 @@
 package com.dorawarranty.dora.network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.util.Log;
+
+import androidx.annotation.IntRange;
 
 import com.dorawarranty.dora.DI.ServiceLocator;
 import com.dorawarranty.dora.network.entity.AddClaimRequest;
@@ -25,6 +30,30 @@ public class NetworkLogic {
     private Retrofit mRetrofit;
     private APIEndpoint api;
     private ServiceLocator mServiceLocator;
+
+
+    @IntRange(from = 0, to = 3)
+    public static int getConnectionType(Context context) {
+        int result = 0; // Returns connection type. 0: none; 1: mobile data; 2: wifi; 3: vpn
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            NetworkCapabilities capabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    result = 2;
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    result = 1;
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                    result = 3;
+                }
+            }
+        }
+        return result;
+    }
+    public static boolean isNetworkAvailable(Context context) {
+        int type = getConnectionType(context);
+        return type != 0;
+    }
 
     public NetworkLogic() {
         baseUrl = "https://dora.gmrybkin.com";

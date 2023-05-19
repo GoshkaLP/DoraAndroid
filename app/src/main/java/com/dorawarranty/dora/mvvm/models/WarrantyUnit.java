@@ -2,19 +2,50 @@ package com.dorawarranty.dora.mvvm.models;
 
 import android.graphics.Bitmap;
 
-public class WarrantyUnit {
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
+import com.dorawarranty.dora.database.MapConverter;
+
+@Entity
+public class WarrantyUnit {
+    @PrimaryKey
+    @ColumnInfo
     private int id;
+
+    @ColumnInfo
     private String manufacturerName;
+
+    @ColumnInfo
     private int manufacturerId;
+
+    @ColumnInfo
     private String modelName;
+
+    @ColumnInfo
     private String modelType;
+
+    @ColumnInfo
     private String serialNumber;
+
+    @ColumnInfo
     private String warrantyEndDate;
+
+    @ColumnInfo
     private boolean isClaimable;
+
+    @ColumnInfo
     private String photoUrl;
+
+    @ColumnInfo
+    @TypeConverters({MapConverter.class})
     private Bitmap photoBmp;
 
+    @Ignore
     public WarrantyUnit(int id, String manufacturerName, int manufacturerId, String modelName,
                         String modelType) {
         this.id = id;
