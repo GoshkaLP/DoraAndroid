@@ -84,7 +84,7 @@ public class WarrantyRepository {
     }
 
     public MutableLiveData<Event<WarrantyUnit>> getUnit(int unitId) {
-        if (mWarrantyDao.checkWarrantyInfo(unitId) != 0) {
+        if (mWarrantyDao.checkWarrantyInfo(unitId) != 0 && !mServiceLocator.getNetworkLogic().isNetworkAvailable(context)) {
             WarrantyUnit warrantyUnit = mWarrantyDao.getWarrantyUnit(unitId);
             mWarrantyUnit.setValue(new Event<>(warrantyUnit));
             Log.d("Loading unit", "info from DB");
@@ -120,12 +120,11 @@ public class WarrantyRepository {
     }
 
     public MutableLiveData<Event<Bitmap>> getUnitPhoto(int unitId) {
-        if (mWarrantyDao.checkWarrantyImage(unitId) != 0) {
+        if (mWarrantyDao.checkWarrantyImage(unitId) != 0 && !mServiceLocator.getNetworkLogic().isNetworkAvailable(context)) {
             Bitmap bmp = mWarrantyDao.getWarrantyImage(unitId);
             mWarrantyUnitPhoto.setValue(new Event<>(bmp));
             Log.d("Loading unit photo", "photo from DB");
-        }
-        else {
+        } else {
             mServiceLocator.getNetworkLogic().getUnitPhoto(unitId, result -> {
                 Bitmap bmp = BitmapFactory.decodeStream(result.byteStream());
                 mWarrantyUnitPhoto.setValue(new Event<>(bmp));
