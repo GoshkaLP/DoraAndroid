@@ -36,7 +36,7 @@ public interface WarrantyDao {
     @Query("SELECT count(*) FROM warrantyunit")
     int linesCount();
 
-    @Query("SELECT * FROM warrantyunit")
+    @Query("SELECT * FROM warrantyunit ORDER BY SUBSTR(warrantyEndDate, 7) || '-' || SUBSTR(warrantyEndDate, 1, 2) || '-' || SUBSTR(warrantyEndDate, 4, 2) DESC")
     List<WarrantyUnit> getAll();
 
     @Query("SELECT count(*) FROM warrantyunit WHERE id=:warrantyId AND photoBmp IS NOT NULL")

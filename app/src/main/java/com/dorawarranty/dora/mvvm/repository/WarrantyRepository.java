@@ -47,7 +47,7 @@ public class WarrantyRepository {
     }
 
     public MutableLiveData<ArrayList<WarrantyUnit>> getUnits() {
-        if (mWarrantyDao.linesCount() > 0) {
+        if (mWarrantyDao.linesCount() > 0 && !mServiceLocator.getNetworkLogic().isNetworkAvailable(context)) {
             Log.d("Loading units", "all units from DB");
             ArrayList<WarrantyUnit> warrantyUnits = new ArrayList<WarrantyUnit>(mWarrantyDao.getAll());
             mWarrantyUnits.setValue(warrantyUnits);
@@ -141,15 +141,19 @@ public class WarrantyRepository {
 
 
     public MutableLiveData<Event<WarrantyClaim>> getClaimStatus(int unitId) {
-        mServiceLocator.getNetworkLogic().getClaimStatus(unitId, result -> {
-            String message = result.getMessage();
-            if (message.equals("SUCCESS")) {
-                String status = (String) result.getData().get("status");
-                mWarrantyClaim.setValue(new Event<>(new WarrantyClaim(status)));
-            } else if (message.equals("WARRANTY_CLAIM_NOT_EXISTS")) {
-                mWarrantyClaim.setValue(new Event<>(new WarrantyClaim("no")));
-            }
-        });
+        if (!mServiceLocator.getNetworkLogic().isNetworkAvailable(context)) {
+           mWarrantyClaim.setValue(new Event<>(new WarrantyClaim("no")));
+        } else {
+            mServiceLocator.getNetworkLogic().getClaimStatus(unitId, result -> {
+                String message = result.getMessage();
+                if (message.equals("SUCCESS")) {
+                    String status = (String) result.getData().get("status");
+                    mWarrantyClaim.setValue(new Event<>(new WarrantyClaim(status)));
+                } else if (message.equals("WARRANTY_CLAIM_NOT_EXISTS")) {
+                    mWarrantyClaim.setValue(new Event<>(new WarrantyClaim("no")));
+                }
+            });
+        }
         return mWarrantyClaim;
     }
 

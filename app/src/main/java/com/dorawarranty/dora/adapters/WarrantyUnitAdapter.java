@@ -38,7 +38,7 @@ public class WarrantyUnitAdapter extends RecyclerView.Adapter<WarrantyUnitHolder
     }
 
     public void addData(WarrantyUnit unit) {
-        mUnits.add(0, unit);
+        mUnits.add(unit);
         notifyDataSetChanged();
     }
 
